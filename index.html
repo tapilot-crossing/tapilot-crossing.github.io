@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tapilot-Crossing: Benchmarking and Evolving LLMs Towards Interactive Data Analysis Agents</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/tapilot.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://bird-bench.github.io/">
+            Bird-SQL
+          </a>
+          <a class="navbar-item" href="https://arxiv.org/abs/2301.07507">
+            Graphix-T5
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <img src="./static/images/logo.png" alt="Company Logo" style="max-width: 120px; margin-bottom: 10px; margin-top: 0px">
+          <h1 class="title is-1 publication-title" style="font-size: 40px;">Tapilot-Crossing: Benchmarking and Evolving LLMs Towards Interactive Data Analysis Agents</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://jinyang-li.me">Jinyang Li*</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://nan-huo.github.io">Nan Huo*</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=HaPgjdoAAAAJ&view_op=list_works&sortby=pubdate">Yan Gao</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Jiayi Shi</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=_lbbRSsAAAAJ&hl=en">Yingxiu Zhao</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/gqamber">Ge Qu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Yurong Wu</a><sup>5</sup>
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="https://chenhao-ma.github.io">Chenhao Ma</a><sup>3</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://www.microsoft.com/en-us/research/people/jlou">Jian-Guang Lou</a><sup>2</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://www.reynold.hku.hk">Reynold Cheng</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>The University of Hong Kong,</span>
+            <span class="author-block"><sup>2</sup>Microsoft</span>
+            <span class="author-block"><sup>3</sup>The Chinese University of Hong Kong, ShenZhen</span>
+            <span class="author-block"><sup>4</sup>The Hong Kong University of Science and Technology</span>
+            <span class="author-block"><sup>5</sup>Chinese Academy of Sciences</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+        
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="javascript:void(0);" onclick="alert('Sorry, our code is currently undergoing an open-source approval process. Please subscribe to us for immediate updates. Thank you for your interests and understanding!');"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="javascript:void(0);" onclick="alert('Sorry, our dataset is currently undergoing an open-source approval process. Please subscribe to us for immediate updates. Thank you for your interests and understanding!');"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <!-- <i class="fa fa-comments"></i> -->
+                      <i class="fa fa-cube"></i>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#contentCover"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa fa-trophy"></i>
+                  </span>
+                  <span>Leaderboard</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="javascript:void(0);" onclick="showSubscribePopup()" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa fa-at"></i>
+                  </span>
+                  <span>Subscribe</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Email Subscription Popup HTML -->
+<div id="emailSubscriptionPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+  <div style="background:white; padding:40px; border-radius:10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 400px; width: 100%; text-align: center;">
+    <h2 style="margin-bottom: 20px; font-size: 24px; font-weight: 600;">Subscribe to Tapilot Updates!</h2>
+    <input type="email" id="email" placeholder="Enter your email" style="width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px;">
+    <div style="display: inline-block; margin-top: 20px;">
+      <button onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007bff'" onclick="submitForm()" style="padding: 10px 20px; border: none; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-size: 16px; margin-right: 10px;">Subscribe</button>
+      <button onmouseover="this.style.backgroundColor='#a1a1a1'" onmouseout="this.style.backgroundColor='#ccc'" onclick="closePopup()" style="padding: 10px 20px; border: none; background-color: #ccc; color: white; border-radius: 5px; cursor: pointer;">Close</button>
+    </div>
+    <div id="message" style="margin-top: 20px;"></div>
+  </div>
+</div>
+
+<script>
+  // Show the subscription popup
+  function showSubscribePopup() {
+    document.getElementById('emailSubscriptionPopup').style.display = 'flex';
+  }
+
+  // Close the subscription popup
+  function closePopup() {
+    document.getElementById('emailSubscriptionPopup').style.display = 'none';
+  }
+
+  // Your existing JavaScript for submitting the email
+  function submitForm() {
+    var email = document.getElementById("email").value;
+    var url = "https://script.google.com/macros/s/AKfycbwzHeRt-DWZBKYiJbvCEaMRHlvZ_dbg9r0UAYZwGzq0v_Vr9d-VMf3_cM_IyqEsBeyt4Q/exec";
+    var data = "email=" + encodeURIComponent(email);
+
+    fetch(url, {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .then(response => response.text())
+    .then(text => {
+      document.getElementById("message").innerHTML = "<i>Subscribe Successfully! Thanks for your attention!</i>";
+      setTimeout(closePopup, 3000); // Close the popup after showing the message
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+
+    return false; // Prevent form submission
+  }
+</script>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" src="./static/images/decision_company.png" alt="Teaser Image" height="100%"/>
+      <h2 class="subtitle has-text-centered">
+        AI Agent Sandbox Decision Company for Tapilot-Crossing Construction 
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Interactive Data Analysis, a collaboration between humans and LLM agents, enables real-time data exploration for informed decision-making. 
+            The challenges and costs of collecting realistic interactive logs for data analysis hinder the quantitative evaluation of Language Model (LLM) agents in this task. 
+            To mitigate this issue, we introduce Tapilot-Crossing, a new benchmark to evaluate LLM agents on interactive data analysis. 
+            Tapilot-Crossing contains 1265 user intents, covering 4 practical scenarios: Normal, Action, Private, and Private Action. 
+            Notably, Tapilot-Crossing is constructed by an economical multi-agent environment, Decision Company, with few human efforts. 
+            We evaluate popular and most advanced LLM agents in Tapilot-Crossing, which underscores the challenges of interactive data analysis. 
+            Furthermore, we propose Adaptive Interaction Reflection (AIR), a self-generated reflection strategy that guides LLM agents to learn from successful history. 
+            Experiments demonstrate that Air can evolve LLMs into effective interactive data analysis agents, achieving a relative performance improvement of up to 44.6%.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Action. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Agent Action Taxonomy</h2>
+        <div class="content has-text-justified">
+          <p>
+            Tapilot-Crossing contains 6 common action types that agent will meet.<br>
+            <img src="./static/images/acc.png" alt="1) Update_Code:" width="15px" height="15px"><strong> Update_Code: </strong>this refers to instances where the user requests corrections for bugs or refinements to the conditions of previous queries.<br>
+            <img src="./static/images/acc.png" alt="2) Fast_Fail:" width="15px" height="15px"><strong> Fast_Fail: </strong>it is an action that alerts users when the current data contents or resources are insufficient to meet their requests, or when user queries contain factual errors.<br>
+            <img src="./static/images/acc.png" alt="3) Clarification:" width="15px" height="15px"><strong> Clarification: </strong>this is a common action in response to under-specified questions, which are frequent in data-analysis queries. In this action, agents make the conditions of the question more specific and clear by seeking additional information from users.<br>
+            <img src="./static/images/acc.png" alt="3) Best_Guess:" width="15px" height="15px"><strong> Best_Guess: </strong>while clarification is an effective action to reduce the uncertainty, it can lead to issues such as user impatience due to unsteadily asking, and long dialog histories that result in attention distraction and long-context problems. Therefore, this action can address these issues by making appropriate assumptions based on data contents, domain knowledge, and commonsense knowledge for under-specific questions. However, there is also a risk that incorrect guesses can lead to hallucinations.<br>
+            <img src="./static/images/acc.png" alt="3) Plot_QA:" width="15px" height="15px"><strong> Plot_QA: </strong>in real data analysis settings, agents are also expected to answer user questions about insights derived from plots. The Plot_QA action can assist users in better understanding the contents of plots for decision making.<br>
+            <img src="./static/images/acc.png" alt="3) Insight_Mining:" width="15px" height="15px"><strong> Insight_Mining: </strong>beyond generating codes for users to retrieve expected results, interactive data analysis agents are also tasked with summarizing executed results from the environment to assist users in making informed decisions. This process, known as Insight_Mining, plays an important role in data analysis since it contributes to the evolution of code agents into comprehensive data analysis agents.<br>
+          </p>
+        <div class="publication-image">
+          <img src="./static/images/taxonomy_new.jpg" alt="Your image description">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="leaderboard-section">
+  <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Leaderboard</h2>
+        </div>
+      </div>
+    </div>
+  <div class="tags has-text-centered">
+    <a class="tag is-link" data-mode="overall">Overall</a>
+    <a class="tag" data-mode="codegen">CodeGen</a>
+    <a class="tag" data-mode="private">PrivateGen</a>
+    <a class="tag" data-mode="analysis">Analysis</a>
+    <a class="tag" data-mode="underspecific">Underspecific</a>
+    <a class="tag" data-mode="unanswerable">Unanswerable</a>
+    <a class="tag" data-mode="plotqa">PlotQA</a>
+    <a class="tag" data-mode="correction">Correction</a>
+  </div>
+  <div class="cover" id="contentCover">
+    <div class="container-t">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="infoCard">
+            <div class="infoBody">
+              <table class="table performanceTable">
+                <tr>
+                  <th>Rank</th>
+                  <th>Model</th>
+                  <th>Setting</th>
+                  <th>Score</th>
+                </tr>
+                <tr data-mode="overall">
+                  <td>
+                    <p>1</p>
+                    <span class="date label label-default">
+                      Feb 20, 2024
+                    </span>
+                  </td>
+                  <td style="word-break:break-word;">
+                    GPT-4-32k + Inter-Agent
+                    <p class="institution">HKU & Microsoft</p>
+                    <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                    <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+                  </td>
+                  <td>
+                    CG Reasoning: COT<br>
+                    MC Reasoning: React<br>
+                    Reflection: Air
+                  </td>
+                  <td><strong>28.2</strong></td>
+                </tr>
+                <tr data-mode="overall">
+                  <td>
+                    <p>2</p>
+                    <span class="date label label-default">
+                      Feb 20, 2024
+                    </span>
+                  </td>
+                  <td style="word-break:break-word;">
+                    GPT-4-32k + Agent
+                    <p class="institution">HKU & Microsoft</p>
+                    <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                    <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+                  </td>
+                  <td>
+                    CG Reasoning: COT<br>
+                    MC Reasoning: React<br>
+                    Reflection: None
+                  </td>
+                  <td>24.2</td>
+                </tr>
+                <tr data-mode="overall">
+                  <td>
+                    <p>3</p>
+                    <span class="date label label-default">
+                      Feb 20, 2024
+                    </span>
+                  </td>
+                  <td style="word-break:break-word;">
+                    GPT-4-Turbo + Inter-Agent
+                    <p class="institution">HKU & Microsoft</p>
+                    <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                    <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+                  </td>
+                  <td>
+                    CG Reasoning: COT<br>
+                    MC Reasoning: React<br>
+                    Reflection: Air
+                  </td>
+                  <td>22.7</td>
+                </tr>
+                <tr data-mode="overall">
+                  <td>
+                    <p>4</p>
+                    <span class="date label label-default">
+                      Feb 20, 2024
+                    </span>
+                  </td>
+                  <td style="word-break:break-word;">
+                    GPT-4-Turbo + Agent
+                    <p class="institution">HKU & Microsoft</p>
+                    <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                    <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+                  </td>
+                  <td>
+                    CG Reasoning: COT<br>
+                    MC Reasoning: React<br>
+                    Reflection: N/A
+                  </td>
+                  <td>20.7</td>
+                </tr>
+                <tr data-mode="overall">
+                  <td>
+                    <p>5</p>
+                    <span class="date label label-default">
+                      Feb 20, 2024
+                    </span>
+                  </td>
+                  <td style="word-break:break-word;">
+                    GPT-4-32k
+                    <p class="institution">OpenAI</p>
+                    <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                  </td>
+                  <td>
+                    CG Reasoning: N/A<br>
+                    MC Reasoning: N/A<br>
+                    Reflection: N/A
+                  </td>
+                  <td>19.5</td>
+                </tr>
+                <tr data-mode="overall">
+                  <td>
+                    <p>6</p>
+                    <span class="date label label-default">
+                      Feb 20, 2024
+                    </span>
+                  </td>
+                  <td style="word-break:break-word;">
+                    Claude-2.1 + Inter-Agent
+                    <p class="institution">HKU & Microsoft</p>
+                    <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                    <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+                  </td>
+                  <td>
+                    CG Reasoning: COT<br>
+                    MC Reasoning: ReAct<br>
+                    Reflection: Air
+                  </td>
+                  <td>15.4</td>
+                </tr>
+                <tr data-mode="overall">
+                  <td>
+                    <p>7</p>
+                    <span class="date label label-default">
+                      Feb 20, 2024
+                    </span>
+                  </td>
+                  <td style="word-break:break-word;">
+                    GPT-4-Turbo
+                    <p class="institution">OpenAI</p>
+                    <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                  </td>
+                  <td>
+                    CG Reasoning: N/A<br>
+                    MC Reasoning: N/A<br>
+                    Reflection: N/A
+                  </td>
+                  <td>15.3</td>
+                </tr>
+              </tr>
+              <tr data-mode="overall">
+                <td>
+                  <p>8</p>
+                  <span class="date label label-default">
+                    Feb 20, 2024
+                  </span>
+                </td>
+                <td style="word-break:break-word;">
+                  Claude-2.1
+                  <p class="institution">Anthropic</p>
+                  <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                </td>
+                <td>
+                  CG Reasoning: N/A<br>
+                  MC Reasoning: N/A<br>
+                  Reflection: N/A
+                </td>
+                <td>13.3</td>
+              </tr>
+            </tr>
+            <tr data-mode="overall">
+              <td>
+                <p>9</p>
+                <span class="date label label-default">
+                  Feb 20, 2024
+                </span>
+              </td>
+              <td style="word-break:break-word;">
+                Claude-2.1 + Agent
+                <p class="institution">HKU & Microsoft</p>
+                <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+              </td>
+              <td>
+                CG Reasoning: COT<br>
+                MC Reasoning: ReAct<br>
+                Reflection: N/A
+              </td>
+              <td>12.8</td>
+            </tr>
+
+
+            <tr data-mode="codegen">
+              <td>
+                <p>1</p>
+                <span class="date label label-default">
+                  Feb 20, 2024
+                </span>
+              </td>
+              <td style="word-break:break-word;">
+                GPT-4-32k + Inter-Agent
+                <p class="institution">HKU & Microsoft</p>
+                <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+              </td>
+              <td>
+                Reasoning: COT<br>
+                Reflection: Air
+              </td>
+              <td><strong>33.3</strong></td>
+            </tr>
+            <tr data-mode="codegen">
+              <td>
+                <p>2</p>
+                <span class="date label label-default">
+                  Feb 20, 2024
+                </span>
+              </td>
+              <td style="word-break:break-word;">
+                GPT-4-Turbo + Inter-Agent
+                <p class="institution">HKU & Microsoft</p>
+                <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+              </td>
+              <td>
+                Reasoning: COT<br>
+                Reflection: Air
+              </td>
+              <td>33.2</td>
+            </tr>
+            <tr data-mode="codegen">
+              <td>
+                <p>3</p>
+                <span class="date label label-default">
+                  Feb 20, 2024
+                </span>
+              </td>
+              <td style="word-break:break-word;">
+                GPT-4-32k
+                <p class="institution">OpenAI</p>
+                <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              </td>
+              <td>
+                Reasoning: N/A<br>
+                Reflection: N/A
+              </td>
+              <td>31.9</td>
+            </tr>
+            <tr data-mode="codegen">
+              <td>
+                <p>4</p>
+                <span class="date label label-default">
+                  Feb 20, 2024
+                </span>
+              </td>
+              <td style="word-break:break-word;">
+                GPT-4-Turbo + Agent
+                <p class="institution">HKU & Microsoft</p>
+                <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+                <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+              </td>
+              <td>
+                Reasoning: COT<br>
+                Reflection: N/A
+              </td>
+              <td>29.9</td>
+            </tr>
+          </tr>
+          <tr data-mode="codegen">
+            <td>
+              <p>5</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-Turbo
+              <p class="institution">OpenAI</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>28.7</td>
+          </tr>
+          <tr data-mode="codegen">
+            <td>
+              <p>6</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1 + Inter-Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: AIR
+            </td>
+            <td>25.7</td>
+          </tr>
+          <tr data-mode="codegen">
+            <td>
+              <p>7</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-32k + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: N/A
+            </td>
+            <td>24.4</td>
+          </tr>
+          <tr data-mode="codegen">
+            <td>
+              <p>8</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1 + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: N/A
+            </td>
+            <td>24.3</td>
+          </tr>
+          <tr data-mode="codegen">
+            <td>
+              <p>9</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1
+              <p class="institution">Anthropic</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>20.1</td>
+          </tr>
+
+
+
+          <tr data-mode="private">
+            <td>
+              <p>1</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-Turbo + Inter-Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: Air
+            </td>
+            <td><strong>12.0</strong></td>
+          </tr>
+          <tr data-mode="private">
+            <td>
+              <p>2</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-32k + Inter-Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: Air
+            </td>
+            <td>10.6</td>
+          </tr>
+          </tr>
+          <tr data-mode="private">
+            <td>
+              <p>3</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-Turbo + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: N/A
+            </td>
+            <td>10.1</td>
+          </tr>
+          
+          <tr data-mode="private">
+            <td>
+              <p>4</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-32k + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: N/A
+            </td>
+            <td>9.1</td>
+          </tr>
+          <tr data-mode="private">
+            <td>
+              <p>5</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-32k
+              <p class="institution">OpenAI</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>7.1</td>
+          </tr>
+          <tr data-mode="private">
+            <td>
+              <p>6</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-Turbo
+              <p class="institution">OpenAI</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>5.3</td>
+          </tr>
+          <tr data-mode="private">
+            <td>
+              <p>7</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1 + Inter-Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: Air
+            </td>
+            <td>5.1</td>
+          </tr>
+          <tr data-mode="private">
+            <td>
+              <p>8</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1 + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: COT<br>
+              Reflection: N/A
+            </td>
+            <td>3.9</td>
+          </tr>
+          <tr data-mode="private">
+            <td>
+              <p>9</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1
+              <p class="institution">Anthropic</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>1.5</td>
+          </tr>
+
+
+          <tr data-mode="analysis">
+            <td>
+              <p>1</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-32k + Inter-Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: ReAct<br>
+              Reflection: Air
+            </td>
+            <td><strong>47.2</strong></td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>2</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-32k + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: ReAct<br>
+              Reflection: N/A
+            </td>
+            <td>42.3</td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>3</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-32k
+              <p class="institution">OpenAI</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>26.4</td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>4</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-Turbo + Inter-Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: ReAct<br>
+              Reflection: AIR
+            </td>
+            <td>12.9</td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>5</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1
+              <p class="institution">Anthropic</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>12.3</td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>6</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1 + Inter-Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: ReAct<br>
+              Reflection: AIR
+            </td>
+            <td>9.8</td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>6</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-Turbo + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+              <a class="link" href="https://github.com/your-repository"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+              Reasoning: ReAct<br>
+              Reflection: N/A
+            </td>
+            <td>9.8</td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>8</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              GPT-4-Turbo
+              <p class="institution">OpenAI</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: N/A<br>
+              Reflection: N/A
+            </td>
+            <td>8.0</td>
+          </tr>
+          <tr data-mode="analysis">
+            <td>
+              <p>9</p>
+              <span class="date label label-default">
+                Feb 20, 2024
+              </span>
+            </td>
+            <td style="word-break:break-word;">
+              Claude-2.1 + Agent
+              <p class="institution">HKU & Microsoft</p>
+              <a class="link" href="https://arxiv.org/abs/2306.02907">Li et al., '23</a>
+            </td>
+            <td>
+              Reasoning: ReAct<br>
+              Reflection: N/A
+            </td>
+            <td>6.1</td>
+          </tr>
+            
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var tags = document.querySelectorAll('.tags .tag'); 
+    tags.forEach(function(tag) {
+      tag.addEventListener('click', function() {
+        var mode = this.getAttribute('data-mode'); 
+        
+        tags.forEach(t => t.classList.remove('is-link'));
+        this.classList.add('is-link');
+        
+        document.querySelectorAll('.performanceTable tr[data-mode]').forEach(row => {
+          if(row.getAttribute('data-mode') === mode) {
+            row.style.display = ''; 
+          } else {
+            row.style.display = 'none'; 
+          }
+        });
+      });
+    });
+  
+    document.querySelector('.tags .tag[data-mode="overall"]').click();
+  });
+  </script>
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Why Tapilot-Crossing?</h2>
+      The name of our project is inspired by the popular Switch game, <a rel="animal"
+      href="https://animalcrossing.nintendo.com/" class="animal-link">Animal-Crossing</a>. where users can perform complex tasks such as constructing fantastic 
+      architectures through interactions with animal citizens (agents). Our research aims to convey such bench playground, enabling AGI development 
+      for more complicated and more realistic 
+      data analysis tasks.
+    </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Li, Jinyang and Huo, Nan and Gao, Yan and Shi, Jiayi and Zhao, Yingxiu, and Qu, Ge and Wu, Yurong and Ma, Chenhao and Lou, Jian-Guang and Cheng, Reynold},
+  title     = {Tapilot-Crossing: Benchmarking and Evolving LLMs Towards Interactive Data Analysis Agents},
+  journal   = {arxiv},
+  year      = {2024},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="" class="external-link">
+        <img src="./static/images/white_logo.png" alt="Company Logo" style="max-width: 120px; margin-bottom: 10px; margin-top: 0px">
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/" class="license-link">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io" class="license-link">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            For more information, please don't hesitate to contact us!
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Placeholder for dynamically generated view counter -->
+    <div class="columns is-centered" id="viewCounterPlaceholder"></div>
+  </div>
+</footer>
+<script>
+  if (typeof(Storage) !== "undefined") {
+    if (localStorage.pagecount) {
+      localStorage.pagecount = Number(localStorage.pagecount) + 1;
+    } else {
+      localStorage.pagecount = 1;
+    }
+    document.addEventListener("DOMContentLoaded", function(){
+      var viewCounterPlaceholder = document.querySelector('#viewCounterPlaceholder');
+      var column = document.createElement('div');
+      column.className = 'column is-8';
+      var viewCounter = document.createElement('p');
+
+      // Wrap the page count number in a span and style it
+      viewCounter.innerHTML = "Thank you for being the <span style='color: #78D6C6;'>" + localStorage.pagecount + "</span>th visitor to our page.";
+
+      column.appendChild(viewCounter);
+      viewCounterPlaceholder.appendChild(column);
+    });
+  } else {
+    console.log("Sorry, your browser does not support web storage...");
+  }
+</script>
+
+</body>
+</html>
