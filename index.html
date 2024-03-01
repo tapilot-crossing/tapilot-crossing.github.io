@@ -1099,30 +1099,16 @@
     <!-- Placeholder for dynamically generated view counter -->
     <div class="columns is-centered" id="viewCounterPlaceholder"></div>
   </div>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VFF8GE3WCQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VFF8GE3WCQ');
+  </script>
 </footer>
-<script>
-  if (typeof(Storage) !== "undefined") {
-    if (localStorage.pagecount) {
-      localStorage.pagecount = Number(localStorage.pagecount) + 1;
-    } else {
-      localStorage.pagecount = 1;
-    }
-    document.addEventListener("DOMContentLoaded", function(){
-      var viewCounterPlaceholder = document.querySelector('#viewCounterPlaceholder');
-      var column = document.createElement('div');
-      column.className = 'column is-8';
-      var viewCounter = document.createElement('p');
-
-      // Wrap the page count number in a span and style it
-      viewCounter.innerHTML = "Thank you for being the <span style='color: #78D6C6;'>" + localStorage.pagecount + "</span>th visitor to our page.";
-
-      column.appendChild(viewCounter);
-      viewCounterPlaceholder.appendChild(column);
-    });
-  } else {
-    console.log("Sorry, your browser does not support web storage...");
-  }
-</script>
 
 </body>
 </html>
