@@ -96,16 +96,14 @@ body {
 .publication-authors {
   /*color: #4286f4;*/
 }
-/* 定义作者链接的默认颜色 */
+
 .publication-authors a {
   color: hsl(204, 86%, 53%);
-  text-decoration: none; /* 可选：去除下划线 */
+  text-decoration: none; 
 }
 
-
-/* 定义鼠标悬停在作者链接上时的颜色 */
 .publication-authors a:hover {
-  color: #FF9B9B; /* 橙色 */
+  color: #FF9B9B;
 }
 
 
@@ -363,5 +361,13 @@ a.link .fa-github:hover {
 
 .subscription-form #message {
   margin-top: 15px;
+}
+
+.ack-link {
+  color: #7469B6
+}
+
+.ack-link:hover {
+  color: #78D6C6; 
 }
 
