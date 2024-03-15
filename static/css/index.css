@@ -35,6 +35,9 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
+.reduced-margin-top {
+  margin-top: 0px;
+}
 
 .publication-title {
 }
